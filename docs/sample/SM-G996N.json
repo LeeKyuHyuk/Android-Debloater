@@ -1,0 +1,122 @@
+{
+    "application": "Android Debloater",
+    "version": "1.0.1",
+    "uninstall": [
+        {
+            "name": "com.android.dreams.basic",
+            "apk": "/system/app/BasicDreams/BasicDreams.apk"
+        },
+        {
+            "name": "com.android.dreams.phototable",
+            "apk": "/system/app/PhotoTable/PhotoTable.apk"
+        },
+        {
+            "name": "com.diotek.sec.lookup.dictionary",
+            "apk": "/system/app/DictDiotekForSec/DictDiotekForSec.apk"
+        },
+        {
+            "name": "com.facebook.appmanager",
+            "apk": "/system/app/FBAppManager_NS/FBAppManager_NS.apk"
+        },
+        {
+            "name": "com.facebook.services",
+            "apk": "/system/priv-app/FBServices/FBServices.apk"
+        },
+        {
+            "name": "com.facebook.system",
+            "apk": "/system/priv-app/FBInstaller_NS/FBInstaller_NS.apk"
+        },
+        {
+            "name": "com.google.android.apps.maps",
+            "apk": "/product/app/Maps/Maps.apk"
+        },
+        {
+            "name": "com.google.android.apps.tachyon",
+            "apk": "/product/app/DuoStub/DuoStub.apk"
+        },
+        {
+            "name": "com.google.android.youtube",
+            "apk": "/product/app/YouTube/YouTube.apk"
+        },
+        {
+            "name": "com.microsoft.appmanager",
+            "apk": "/system/priv-app/YourPhone_P1_5/YourPhone_P1_5.apk"
+        },
+        {
+            "name": "com.samsung.android.app.routines",
+            "apk": "/system/priv-app/Routines/Routines.apk"
+        },
+        {
+            "name": "com.samsung.android.app.spage",
+            "apk": "/system/app/MinusOnePage/MinusOnePage.apk"
+        },
+        {
+            "name": "com.samsung.android.app.tips",
+            "apk": "/data/app/Tips/Tips.apk"
+        },
+        {
+            "name": "com.samsung.android.bixby.agent",
+            "apk": "/system/priv-app/Bixby/Bixby.apk"
+        },
+        {
+            "name": "com.samsung.android.bixby.service",
+            "apk": "/system/priv-app/BixbyService/BixbyService.apk"
+        },
+        {
+            "name": "com.samsung.android.bixbyvision.framework",
+            "apk": "/system/priv-app/BixbyVisionFramework3.5/BixbyVisionFramework3.5.apk"
+        },
+        {
+            "name": "com.samsung.android.game.gamehome",
+            "apk": "/system/priv-app/GameHome/GameHome.apk"
+        },
+        {
+            "name": "com.samsung.android.game.gametools",
+            "apk": "/system/priv-app/GameTools_Dream/GameTools_Dream.apk"
+        },
+        {
+            "name": "com.samsung.android.game.gos",
+            "apk": "/system/priv-app/GameOptimizingService/GameOptimizingService.apk"
+        },
+        {
+            "name": "com.samsung.android.samsungpass",
+            "apk": "/system/priv-app/SamsungPass/SamsungPass.apk"
+        },
+        {
+            "name": "com.samsung.android.samsungpassautofill",
+            "apk": "/system/app/SamsungPassAutofill_v1/SamsungPassAutofill_v1.apk"
+        },
+        {
+            "name": "com.samsung.android.scloud",
+            "apk": "/system/priv-app/SamsungCloudClient/SamsungCloudClient.apk"
+        },
+        {
+            "name": "com.samsung.android.tapack.authfw",
+            "apk": "/system/priv-app/TaPackAuthFw/TaPackAuthFw.apk"
+        },
+        {
+            "name": "com.samsung.android.themecenter",
+            "apk": "/system/priv-app/ThemeCenter/ThemeCenter.apk"
+        },
+        {
+            "name": "com.samsung.android.themestore",
+            "apk": "/system/priv-app/ThemeStore/ThemeStore.apk"
+        },
+        {
+            "name": "com.samsung.android.visionintelligence",
+            "apk": "/system/app/VisionIntelligence3.7/VisionIntelligence3.7.apk"
+        },
+        {
+            "name": "com.sec.android.widgetapp.webmanual",
+            "apk": "/system/app/WebManual/WebManual.apk"
+        },
+        {
+            "name": "com.swiftkey.swiftkeyconfigurator",
+            "apk": "/system/priv-app/SwiftkeySetting/SwiftkeySetting.apk"
+        },
+        {
+            "name": "com.touchtype.swiftkey",
+            "apk": "/system/priv-app/SwiftkeyIme/SwiftkeyIme.apk"
+        }
+    ]
+}
