@@ -33,6 +33,7 @@ function createWindow(): void {
       devTools: isDevelopment,
     },
   });
+  mainWindow.setMenuBarVisibility(false);
   Remote.enable(mainWindow.webContents);
 
   // and load the index.html of the app.
