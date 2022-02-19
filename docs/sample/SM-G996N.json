@@ -95,10 +95,6 @@
             "apk": "/system/priv-app/TaPackAuthFw/TaPackAuthFw.apk"
         },
         {
-            "name": "com.samsung.android.themecenter",
-            "apk": "/system/priv-app/ThemeCenter/ThemeCenter.apk"
-        },
-        {
             "name": "com.samsung.android.themestore",
             "apk": "/system/priv-app/ThemeStore/ThemeStore.apk"
         },
@@ -117,6 +113,54 @@
         {
             "name": "com.touchtype.swiftkey",
             "apk": "/system/priv-app/SwiftkeyIme/SwiftkeyIme.apk"
+        },
+        {
+            "name": "com.samsung.clipboardsaveservice",
+            "apk": "/system/priv-app/ClipboardSaveService/ClipboardSaveService.apk"
+        },
+        {
+            "name": "com.samsung.android.app.clipboardedge",
+            "apk": "/system/app/ClipboardEdge/ClipboardEdge.apk"
+        },
+        {
+            "name": "com.samsung.android.bixby.wakeup",
+            "apk": "/system/app/BixbyWakeup/BixbyWakeup.apk"
+        },
+        {
+            "name": "com.google.ar.core",
+            "apk": "/system/app/ARCore/ARCore.apk"
+        },
+        {
+            "name": "com.google.android.gms.location.history",
+            "apk": "/product/app/GoogleLocationHistory/GoogleLocationHistory.apk"
+        },
+        {
+            "name": "com.samsung.android.arzone",
+            "apk": "/system/app/ARZone/ARZone.apk"
+        },
+        {
+            "name": "com.samsung.android.app.simplesharing",
+            "apk": "/system/app/LinkSharing_v11/LinkSharing_v11.apk"
+        },
+        {
+            "name": "com.samsung.android.mateagent",
+            "apk": "/system/priv-app/MateAgent/MateAgent.apk"
+        },
+        {
+            "name": "com.samsung.android.kidsinstaller",
+            "apk": "/system/app/KidsHome_Installer/KidsHome_Installer.apk"
+        },
+        {
+            "name": "com.samsung.android.ardrawing",
+            "apk": "/system/app/ARDrawing/ARDrawing.apk"
+        },
+        {
+            "name": "com.android.hotwordenrollment.xgoogle",
+            "apk": "/product/priv-app/HotwordEnrollmentXGoogleEx3CORTEXM4/HotwordEnrollmentXGoogleEx3CORTEXM4.apk"
+        },
+        {
+            "name": "com.android.hotwordenrollment.okgoogle",
+            "apk": "/product/priv-app/HotwordEnrollmentOKGoogleEx3CORTEXM4/HotwordEnrollmentOKGoogleEx3CORTEXM4.apk"
         }
     ]
 }
