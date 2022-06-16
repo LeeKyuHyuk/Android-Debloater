@@ -1,9 +1,14 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import { RecoilRoot } from 'recoil';
+import 'antd/dist/antd.css';
+import '../css/App.css';
 import App from './App';
-import 'primereact/resources/themes/mdc-light-indigo/theme.css';
-import 'primereact/resources/primereact.min.css';
-import 'primeicons/primeicons.css';
-import 'primeflex/primeflex.css';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const container = document.getElementById('root');
+const root = createRoot(container!);
+root.render(
+  <RecoilRoot>
+    <App />
+  </RecoilRoot>,
+);

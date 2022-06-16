@@ -1,166 +1,46 @@
 {
     "application": "Android Debloater",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "uninstall": [
-        {
-            "name": "com.android.dreams.basic",
-            "apk": "/system/app/BasicDreams/BasicDreams.apk"
-        },
-        {
-            "name": "com.android.dreams.phototable",
-            "apk": "/system/app/PhotoTable/PhotoTable.apk"
-        },
-        {
-            "name": "com.diotek.sec.lookup.dictionary",
-            "apk": "/system/app/DictDiotekForSec/DictDiotekForSec.apk"
-        },
-        {
-            "name": "com.facebook.appmanager",
-            "apk": "/system/app/FBAppManager_NS/FBAppManager_NS.apk"
-        },
-        {
-            "name": "com.facebook.services",
-            "apk": "/system/priv-app/FBServices/FBServices.apk"
-        },
-        {
-            "name": "com.facebook.system",
-            "apk": "/system/priv-app/FBInstaller_NS/FBInstaller_NS.apk"
-        },
-        {
-            "name": "com.google.android.apps.maps",
-            "apk": "/product/app/Maps/Maps.apk"
-        },
-        {
-            "name": "com.google.android.apps.tachyon",
-            "apk": "/product/app/DuoStub/DuoStub.apk"
-        },
-        {
-            "name": "com.google.android.youtube",
-            "apk": "/product/app/YouTube/YouTube.apk"
-        },
-        {
-            "name": "com.microsoft.appmanager",
-            "apk": "/system/priv-app/YourPhone_P1_5/YourPhone_P1_5.apk"
-        },
-        {
-            "name": "com.samsung.android.app.routines",
-            "apk": "/system/priv-app/Routines/Routines.apk"
-        },
-        {
-            "name": "com.samsung.android.app.spage",
-            "apk": "/system/app/MinusOnePage/MinusOnePage.apk"
-        },
-        {
-            "name": "com.samsung.android.app.tips",
-            "apk": "/data/app/Tips/Tips.apk"
-        },
-        {
-            "name": "com.samsung.android.bixby.agent",
-            "apk": "/system/priv-app/Bixby/Bixby.apk"
-        },
-        {
-            "name": "com.samsung.android.bixby.service",
-            "apk": "/system/priv-app/BixbyService/BixbyService.apk"
-        },
-        {
-            "name": "com.samsung.android.bixbyvision.framework",
-            "apk": "/system/priv-app/BixbyVisionFramework3.5/BixbyVisionFramework3.5.apk"
-        },
-        {
-            "name": "com.samsung.android.game.gamehome",
-            "apk": "/system/priv-app/GameHome/GameHome.apk"
-        },
-        {
-            "name": "com.samsung.android.game.gametools",
-            "apk": "/system/priv-app/GameTools_Dream/GameTools_Dream.apk"
-        },
-        {
-            "name": "com.samsung.android.game.gos",
-            "apk": "/system/priv-app/GameOptimizingService/GameOptimizingService.apk"
-        },
-        {
-            "name": "com.samsung.android.samsungpass",
-            "apk": "/system/priv-app/SamsungPass/SamsungPass.apk"
-        },
-        {
-            "name": "com.samsung.android.samsungpassautofill",
-            "apk": "/system/app/SamsungPassAutofill_v1/SamsungPassAutofill_v1.apk"
-        },
-        {
-            "name": "com.samsung.android.scloud",
-            "apk": "/system/priv-app/SamsungCloudClient/SamsungCloudClient.apk"
-        },
-        {
-            "name": "com.samsung.android.tapack.authfw",
-            "apk": "/system/priv-app/TaPackAuthFw/TaPackAuthFw.apk"
-        },
-        {
-            "name": "com.samsung.android.themestore",
-            "apk": "/system/priv-app/ThemeStore/ThemeStore.apk"
-        },
-        {
-            "name": "com.samsung.android.visionintelligence",
-            "apk": "/system/app/VisionIntelligence3.7/VisionIntelligence3.7.apk"
-        },
-        {
-            "name": "com.sec.android.widgetapp.webmanual",
-            "apk": "/system/app/WebManual/WebManual.apk"
-        },
-        {
-            "name": "com.swiftkey.swiftkeyconfigurator",
-            "apk": "/system/priv-app/SwiftkeySetting/SwiftkeySetting.apk"
-        },
-        {
-            "name": "com.touchtype.swiftkey",
-            "apk": "/system/priv-app/SwiftkeyIme/SwiftkeyIme.apk"
-        },
-        {
-            "name": "com.samsung.clipboardsaveservice",
-            "apk": "/system/priv-app/ClipboardSaveService/ClipboardSaveService.apk"
-        },
-        {
-            "name": "com.samsung.android.app.clipboardedge",
-            "apk": "/system/app/ClipboardEdge/ClipboardEdge.apk"
-        },
-        {
-            "name": "com.samsung.android.bixby.wakeup",
-            "apk": "/system/app/BixbyWakeup/BixbyWakeup.apk"
-        },
-        {
-            "name": "com.google.ar.core",
-            "apk": "/system/app/ARCore/ARCore.apk"
-        },
-        {
-            "name": "com.google.android.gms.location.history",
-            "apk": "/product/app/GoogleLocationHistory/GoogleLocationHistory.apk"
-        },
-        {
-            "name": "com.samsung.android.arzone",
-            "apk": "/system/app/ARZone/ARZone.apk"
-        },
-        {
-            "name": "com.samsung.android.app.simplesharing",
-            "apk": "/system/app/LinkSharing_v11/LinkSharing_v11.apk"
-        },
-        {
-            "name": "com.samsung.android.mateagent",
-            "apk": "/system/priv-app/MateAgent/MateAgent.apk"
-        },
-        {
-            "name": "com.samsung.android.kidsinstaller",
-            "apk": "/system/app/KidsHome_Installer/KidsHome_Installer.apk"
-        },
-        {
-            "name": "com.samsung.android.ardrawing",
-            "apk": "/system/app/ARDrawing/ARDrawing.apk"
-        },
-        {
-            "name": "com.android.hotwordenrollment.xgoogle",
-            "apk": "/product/priv-app/HotwordEnrollmentXGoogleEx3CORTEXM4/HotwordEnrollmentXGoogleEx3CORTEXM4.apk"
-        },
-        {
-            "name": "com.android.hotwordenrollment.okgoogle",
-            "apk": "/product/priv-app/HotwordEnrollmentOKGoogleEx3CORTEXM4/HotwordEnrollmentOKGoogleEx3CORTEXM4.apk"
-        }
+        "com.android.dreams.basic",
+        "com.android.dreams.phototable",
+        "com.android.hotwordenrollment.okgoogle",
+        "com.android.hotwordenrollment.xgoogle",
+        "com.diotek.sec.lookup.dictionary",
+        "com.facebook.appmanager",
+        "com.facebook.services",
+        "com.facebook.system",
+        "com.google.android.apps.maps",
+        "com.google.android.apps.tachyon",
+        "com.google.android.gm",
+        "com.google.android.gms.location.history",
+        "com.google.ar.core",
+        "com.microsoft.appmanager",
+        "com.samsung.android.app.clipboardedge",
+        "com.samsung.android.app.routines",
+        "com.samsung.android.app.simplesharing",
+        "com.samsung.android.app.spage",
+        "com.samsung.android.app.tips",
+        "com.samsung.android.ardrawing",
+        "com.samsung.android.arzone",
+        "com.samsung.android.bixby.agent",
+        "com.samsung.android.bixby.service",
+        "com.samsung.android.bixby.wakeup",
+        "com.samsung.android.bixbyvision.framework",
+        "com.samsung.android.game.gamehome",
+        "com.samsung.android.game.gametools",
+        "com.samsung.android.game.gos",
+        "com.samsung.android.kidsinstaller",
+        "com.samsung.android.mateagent",
+        "com.samsung.android.samsungpass",
+        "com.samsung.android.samsungpassautofill",
+        "com.samsung.android.scloud",
+        "com.samsung.android.tapack.authfw",
+        "com.samsung.android.themestore",
+        "com.samsung.android.visionintelligence",
+        "com.samsung.clipboardsaveservice",
+        "com.sec.android.widgetapp.webmanual",
+        "com.swiftkey.swiftkeyconfigurator",
+        "com.touchtype.swiftkey"
     ]
 }

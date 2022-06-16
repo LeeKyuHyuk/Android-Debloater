@@ -7,7 +7,7 @@ const run = promisify(exec);
 const GetSerialNumber = async (): Promise<string> => {
   try {
     const { stdout } = await run(`${Adb()} get-serialno`);
-    return stdout;
+    return stdout.trim();
   } catch (error) {
     return '';
   }

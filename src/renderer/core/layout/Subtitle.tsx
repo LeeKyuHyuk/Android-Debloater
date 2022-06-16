@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
+import { styled } from '@stitches/react';
 
-const Subtitle = styled.h4({
+const Subtitle = styled('h4', {
   margin: 4,
   color: '#000000',
   opacity: 0.6,

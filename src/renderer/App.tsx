@@ -1,61 +1,44 @@
 import * as React from 'react';
-import styled from '@emotion/styled';
+import { Layout } from 'antd';
+import { styled } from '@stitches/react';
 import Header from './Header';
 import Content from './Content';
-import Footer from './Footer';
-import GetDeviceNumber from '../adb/GetDeviceNumber';
-import { PackageData } from '../adb/GetPackages';
+import Footer from './core/layout/Footer';
 
-export enum MODE {
-  DEVICE_WAITING,
-  DEVICE_CONNECTED,
-  UNINSTALL_PACKAGE_CONFIRM,
-  UNINSTALL_PACKAGE_RUN,
-}
-
-type UninstallPackage = {
-  name: string;
-  apk: string;
-};
-
-export type AndroidDebloater = {
-  application: string;
-  version: string;
-  uninstall: UninstallPackage[];
-};
-
-const AppLayout = styled.div({
+const AppLayout = styled(Layout, {
   height: '100vh',
   backgroundColor: '#f0f2f5',
 });
 
+const HeaderLayout = styled(Layout.Header, {
+  height: 'auto',
+  padding: '12px',
+  lineHeight: '27px',
+  boxShadow: '0px 1px 0px 0px #e2e2e2',
+  backgroundColor: '#ffffff',
+  display: 'flex',
+  justifyContent: 'space-between',
+  zIndex: 1,
+});
+
+const FooterLayout = styled(Layout.Footer, {
+  textAlign: 'center',
+});
+
+const { Content: ContentLayout } = Layout;
+
 const App = () => {
-  const [mode, setMode] = React.useState<MODE>(MODE.DEVICE_WAITING);
-  const [deviceNumber, setDeviceNumber] = React.useState<number>(0);
-  const [rowSelected, setRowSelected] = React.useState<PackageData[]>([]);
-
-  const findDevice = async () => {
-    setDeviceNumber(await GetDeviceNumber());
-  };
-
   return (
     <AppLayout>
-      <Header
-        findDevice={findDevice}
-        mode={mode}
-        setMode={setMode}
-        rowSelected={rowSelected}
-        setRowSelected={setRowSelected}
-      />
-      <Content
-        findDevice={findDevice}
-        deviceNumber={deviceNumber}
-        mode={mode}
-        setMode={setMode}
-        rowSelected={rowSelected}
-        setRowSelected={setRowSelected}
-      />
-      <Footer />
+      <HeaderLayout>
+        <Header />
+      </HeaderLayout>
+      <ContentLayout>
+        <Content />
+      </ContentLayout>
+      <FooterLayout>
+        <Footer />
+      </FooterLayout>
     </AppLayout>
   );
 };

@@ -1,64 +1,51 @@
 import * as React from 'react';
-import { Button } from 'primereact/button';
-import { Avatar } from 'primereact/avatar';
-import { MODE } from '../App';
-import Title from '../Title';
-import Subtitle from '../Subtitle';
+import { useRecoilState } from 'recoil';
+import { styled } from '@stitches/react';
+import { appState } from '../constants/atoms';
+import Title from '../core/Title';
+import Subtitle from '../core/layout/Subtitle';
+import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
+import Button from '../core/Button';
+import { MODE } from '../constants/types';
 
-type WaitingProps = {
-  deviceNumber: number;
-  setMode: React.Dispatch<React.SetStateAction<MODE>>;
-};
+const Layout = styled('div', {
+  display: 'grid',
+  placeItems: 'center',
+  padding: '20% 0px',
+});
 
-const Waiting = ({ deviceNumber, setMode }: WaitingProps) => {
+const Waiting = () => {
+  const [state, setState] = useRecoilState(appState);
+
   return (
     <>
-      {deviceNumber === 0 && (
-        <div style={{ display: 'grid', placeItems: 'center', padding: '20% 0px' }}>
-          <Avatar
-            icon="pi pi-times"
-            className="p-mr-2"
-            size="xlarge"
-            shape="circle"
-            style={{ backgroundColor: '#f44336', color: '#ffffff', marginBottom: '16px' }}
-          />
+      {state.deviceNumber === 0 && (
+        <Layout>
+          <CloseCircleTwoTone twoToneColor="#F44336" style={{ fontSize: '5em', padding: '15px' }} />
           <Title>Android device is not connected!</Title>
           <Subtitle>Check the connection and click the 'Refresh' button.</Subtitle>
-        </div>
+        </Layout>
       )}
-      {deviceNumber > 1 && (
-        <div style={{ display: 'grid', placeItems: 'center', padding: '20% 0px' }}>
-          <Avatar
-            icon="pi pi-times"
-            className="p-mr-2"
-            size="xlarge"
-            shape="circle"
-            style={{ backgroundColor: '#f44336', color: '#ffffff', marginBottom: '16px' }}
-          />
+      {state.deviceNumber > 1 && (
+        <Layout>
+          <CloseCircleTwoTone twoToneColor="#F44336" style={{ fontSize: '5em', padding: '15px' }} />
           <Title>Two or more Android devices are connected!</Title>
           <Subtitle>
             Please connect only one Android device and Click the 'Refresh' button.
           </Subtitle>
-        </div>
+        </Layout>
       )}
-      {deviceNumber === 1 && (
-        <div style={{ display: 'grid', placeItems: 'center', padding: '20% 0px' }}>
-          <Avatar
-            icon="pi pi-check"
-            className="p-mr-2"
-            size="xlarge"
-            shape="circle"
-            style={{ backgroundColor: '#4caf50', color: '#ffffff', marginBottom: '16px' }}
-          />
+      {state.deviceNumber === 1 && (
+        <Layout>
+          <CheckCircleTwoTone twoToneColor="#4CAF50" style={{ fontSize: '5em', padding: '15px' }} />
           <Title>Connected with Android device!</Title>
-          <Subtitle>Please allow USB debugging on your Android device.</Subtitle>
-          <Button
-            label="Connect"
-            className="p-button-rounded p-button-info"
-            style={{ marginTop: '16px' }}
-            onClick={() => setMode(MODE.DEVICE_CONNECTED)}
-          />
-        </div>
+          <Subtitle style={{ marginBottom: '20px' }}>
+            Please allow USB debugging on your Android device.
+          </Subtitle>
+          <Button type="Main" onClick={() => setState({ ...state, mode: MODE.DEVICE_CONNECTED })}>
+            Connect
+          </Button>
+        </Layout>
       )}
     </>
   );

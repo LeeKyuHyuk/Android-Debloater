@@ -1,53 +1,37 @@
 import * as React from 'react';
-import styled from '@emotion/styled';
-import { PackageData } from '../../adb/GetPackages';
-import { MODE } from '../App';
+import { useRecoilState } from 'recoil';
+import { styled } from '@stitches/react';
+import { appState } from '../constants/atoms';
+import { WHITE } from '../constants/colors';
+import GetDeviceNumber from '../../adb/GetDeviceNumber';
+import { MODE } from '../constants/types';
 import Waiting from './Waiting';
-import Connected from './Connected';
+import Packages from './Packages';
 import Confirm from './Confirm';
 import Run from './Run';
 
-const ContentLayout = styled.div({
-  backgroundColor: '#ffffff',
-  height: 'calc(100% - 140px)',
+const ContentLayout = styled('div', {
+  backgroundColor: WHITE,
+  height: 'calc(100%)',
 });
 
-type ContentProps = {
-  findDevice: () => Promise<void>;
-  deviceNumber: number;
-  mode: MODE;
-  setMode: React.Dispatch<React.SetStateAction<MODE>>;
-  rowSelected: PackageData[];
-  setRowSelected: React.Dispatch<React.SetStateAction<PackageData[]>>;
-};
+const Content = () => {
+  const [state, setState] = useRecoilState(appState);
 
-const Content = ({
-  findDevice,
-  deviceNumber,
-  mode,
-  setMode,
-  rowSelected,
-  setRowSelected,
-}: ContentProps) => {
+  const findDevice = async () => {
+    setState({ ...state, deviceNumber: await GetDeviceNumber() });
+  };
+
   React.useEffect(() => {
-    if (mode === MODE.DEVICE_WAITING) findDevice();
-  }, [mode]);
+    if (state.mode === MODE.DEVICE_WAITING) findDevice();
+  }, [state.mode]);
 
   return (
     <ContentLayout>
-      {mode === MODE.DEVICE_WAITING && <Waiting deviceNumber={deviceNumber} setMode={setMode} />}
-      {mode === MODE.DEVICE_CONNECTED && (
-        <Connected rowSelected={rowSelected} setRowSelected={setRowSelected} />
-      )}
-      {mode === MODE.UNINSTALL_PACKAGE_CONFIRM && <Confirm rowSelected={rowSelected} />}
-      {mode === MODE.UNINSTALL_PACKAGE_RUN && (
-        <Run
-          mode={mode}
-          setMode={setMode}
-          rowSelected={rowSelected}
-          setRowSelected={setRowSelected}
-        />
-      )}
+      {state.mode === MODE.DEVICE_WAITING && <Waiting />}
+      {state.mode === MODE.DEVICE_CONNECTED && <Packages />}
+      {state.mode === MODE.UNINSTALL_PACKAGE_CONFIRM && <Confirm />}
+      {state.mode === MODE.UNINSTALL_PACKAGE_RUN && <Run />}
     </ContentLayout>
   );
 };

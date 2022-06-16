@@ -4,40 +4,52 @@ import Adb from './Adb';
 
 const run = promisify(exec);
 
-export interface PackageData {
-  key: string;
-  name: string;
-  apk: string;
-}
-
-const GetPackages = async (): Promise<PackageData[]> => {
+export const GetEnablePackages = async (): Promise<string[]> => {
   try {
-    const data: PackageData[] = [];
-    const { stdout, stderr } = await run(`${Adb()} shell "pm list packages -f"`);
-    if (stderr) return [{ key: '-1', name: stderr, apk: '' }];
+    const data: string[] = [];
+    const { stdout, stderr } = await run(`${Adb()} shell "pm list packages -e"`);
+    if (stderr) return [stderr];
     const buffer = stdout.replaceAll('package:', '').split('\n');
     for (let index = 0; index < buffer.length - 1; index++) {
-      const application = buffer[index].split('=');
-      if (application[1] !== 'android' && application[1] !== '')
-        data.push({
-          key: application[1].trim(),
-          name: application[1].trim(),
-          apk: application[0].trim(),
-        });
+      const application = buffer[index].trim();
+      if (application !== 'android' && application !== '') data.push(application);
     }
     data.sort((a, b) => {
-      if (a.name < b.name) {
+      if (a < b) {
         return -1;
       }
-      if (a.name > b.name) {
+      if (a > b) {
         return 1;
       }
       return 0;
     });
     return data;
   } catch (error) {
-    return [{ key: '-1', name: error.toString(), apk: '' }];
+    return [error.toString()];
   }
 };
 
-export default GetPackages;
+export const GetDisablePackages = async (): Promise<string[]> => {
+  try {
+    const data: string[] = [];
+    const { stdout, stderr } = await run(`${Adb()} shell "pm list packages -d"`);
+    if (stderr) return [stderr];
+    const buffer = stdout.replaceAll('package:', '').split('\n');
+    for (let index = 0; index < buffer.length - 1; index++) {
+      const application = buffer[index].trim();
+      if (application !== 'android' && application !== '') data.push(application);
+    }
+    data.sort((a, b) => {
+      if (a < b) {
+        return -1;
+      }
+      if (a > b) {
+        return 1;
+      }
+      return 0;
+    });
+    return data;
+  } catch (error) {
+    return [error.toString()];
+  }
+};

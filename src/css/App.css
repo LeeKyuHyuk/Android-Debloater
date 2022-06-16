@@ -1,0 +1,32 @@
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.ant-list {
+  height: calc(100% - 56px);
+  overflow: auto;
+}
+
+.ant-spin-nested-loading {
+  height: 100%;
+}
+
+.ant-spin-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.ant-table-thead {
+  font-weight: bold;
+  text-align: center;
+}
+
+.ant-table {
+  max-height: 100%;
+  overflow: auto;
+}

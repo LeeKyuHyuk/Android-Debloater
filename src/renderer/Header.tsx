@@ -1,51 +1,36 @@
 import * as React from 'react';
+import { message } from 'antd';
 import { dialog } from '@electron/remote';
 import * as fs from 'fs';
-import styled from '@emotion/styled';
-import { Button } from 'primereact/button';
-import { AndroidDebloater, MODE } from './App';
-import Title from './Title';
-import Subtitle from './Subtitle';
+import { styled } from '@stitches/react';
 import GetDeviceName from '../adb/GetDeviceName';
 import GetSerialNumber from '../adb/GetSerialNumber';
-import { PackageData } from '../adb/GetPackages';
+import GetDeviceNumber from '../adb/GetDeviceNumber';
+import Button from './core/Button';
+import Title from './core/Title';
+import Subtitle from './core/layout/Subtitle';
+import { useRecoilState } from 'recoil';
+import { appState } from './constants/atoms';
+import { AndroidDebloater, MODE, OPERATION, REMOVE_MODE } from './constants/types';
 
-const HeaderLayout = styled.div({
-  height: '80px',
-  margin: '0px 0px 1px 0px',
-  padding: 16,
-  boxShadow: '0px 1px 0px 0px #e2e2e2',
-  backgroundColor: '#ffffff',
-});
-
-const ControlPanel = styled.div({
+const ControlPanel = styled('div', {
   textAlign: 'right',
-  display: 'table-cell',
   verticalAlign: 'middle',
 });
 
-const ControlButton = styled(Button)({
-  display: 'inline-block',
-});
+const Header = () => {
+  const [state, setState] = useRecoilState(appState);
 
-type HeaderProps = {
-  findDevice: () => Promise<void>;
-  mode: MODE;
-  setMode: React.Dispatch<React.SetStateAction<MODE>>;
-  rowSelected: PackageData[];
-  setRowSelected: React.Dispatch<React.SetStateAction<PackageData[]>>;
-};
-
-const Header = ({ findDevice, mode, setMode, rowSelected, setRowSelected }: HeaderProps) => {
-  const [deviceName, setDeviceName] = React.useState<string>('Loading...');
-  const [serialNumber, setSerialNumber] = React.useState<string>('');
-
-  const updateDeviceName = async () => {
-    setDeviceName(await GetDeviceName());
+  const findDevice = async () => {
+    setState({ ...state, deviceNumber: await GetDeviceNumber() });
   };
 
-  const updateSerialNumber = async () => {
-    setSerialNumber(await GetSerialNumber());
+  const updateDevice = async () => {
+    setState({
+      ...state,
+      deviceName: await GetDeviceName(),
+      serialNumber: await GetSerialNumber(),
+    });
   };
 
   const importData = async () => {
@@ -62,11 +47,7 @@ const Header = ({ findDevice, mode, setMode, rowSelected, setRowSelected }: Head
               if (error) console.error(error);
               if (data) {
                 const dataObject: AndroidDebloater = JSON.parse(data);
-                setRowSelected(
-                  dataObject.uninstall.map((item) => {
-                    return { key: item.name, name: item.name, apk: item.apk };
-                  }),
-                );
+                setState({ ...state, selected: dataObject.uninstall });
               }
             });
         }
@@ -86,10 +67,8 @@ const Header = ({ findDevice, mode, setMode, rowSelected, setRowSelected }: Head
         if (!result.canceled) {
           const data: AndroidDebloater = {
             application: 'Android Debloater',
-            version: '1.0.1',
-            uninstall: rowSelected.map((item) => {
-              return { name: item.name, apk: item.apk };
-            }),
+            version: '1.0.2',
+            uninstall: state.selected,
           };
           if (result.filePath)
             fs.writeFile(result.filePath, JSON.stringify(data, null, 4), (error) => {
@@ -103,81 +82,89 @@ const Header = ({ findDevice, mode, setMode, rowSelected, setRowSelected }: Head
   };
 
   React.useEffect(() => {
-    if (mode === MODE.DEVICE_CONNECTED) {
-      updateDeviceName();
-      updateSerialNumber();
+    if (state.mode === MODE.DEVICE_CONNECTED) {
+      updateDevice();
     }
-  }, [mode]);
+  }, [state.mode]);
 
   return (
-    <HeaderLayout className="grid">
-      <div className="col-7" style={{ paddingTop: '12px' }}>
-        {mode === MODE.DEVICE_WAITING ? (
+    <>
+      <div style={{ paddingTop: '6px' }}>
+        {state.mode === MODE.DEVICE_WAITING ? (
           <Title>Device Connect</Title>
         ) : (
           <>
-            <Title>{deviceName}</Title>
-            <Subtitle>{serialNumber}</Subtitle>
+            <Title>{state.deviceName}</Title>
+            <Subtitle>{state.serialNumber}</Subtitle>
           </>
         )}
       </div>
-      <ControlPanel className="col-5">
-        {mode === MODE.DEVICE_WAITING && (
-          <ControlButton
-            label="Refresh"
-            className="p-button-outlined p-button-text p-button-plain"
-            icon="pi pi-refresh"
-            onClick={findDevice}
-          />
+      <ControlPanel>
+        {state.mode === MODE.DEVICE_WAITING && (
+          <Button type={state.deviceNumber !== 1 ? 'Main' : 'Sub'} onClick={findDevice}>
+            Refresh
+          </Button>
         )}
-        {mode === MODE.DEVICE_CONNECTED && (
+        {state.mode === MODE.DEVICE_CONNECTED && (
           <>
+            <Button type="Sub" onClick={importData}>
+              Import
+            </Button>
             <Button
-              label="Import"
-              className="p-button-outlined p-button-text p-button-plain"
-              icon="pi pi-file"
-              onClick={importData}
-            />
+              type="Sub"
+              onClick={() =>
+                setState({
+                  ...state,
+                  mode: MODE.DEVICE_WAITING,
+                  operation: OPERATION.DELETE,
+                  removeMode: REMOVE_MODE.DISABLE,
+                  selected: [],
+                })
+              }
+            >
+              Disconnect
+            </Button>
             <Button
-              style={{ margin: '0px 8px' }}
-              label="Run"
-              className="p-button-success"
-              icon="pi pi-play"
-              onClick={() => setMode(MODE.UNINSTALL_PACKAGE_CONFIRM)}
-            />
-            <ControlButton
-              label="Disconnect"
-              className="p-button-danger"
-              icon="pi pi-sign-out"
-              onClick={() => setMode(MODE.DEVICE_WAITING)}
-            />
+              type="Main"
+              onClick={() =>
+                state.selected.length === 0
+                  ? message.error('Please select the package to delete')
+                  : setState({ ...state, mode: MODE.UNINSTALL_PACKAGE_CONFIRM })
+              }
+            >
+              Run
+            </Button>
           </>
         )}
-        {mode === MODE.UNINSTALL_PACKAGE_CONFIRM && (
+        {state.mode === MODE.UNINSTALL_PACKAGE_CONFIRM && (
           <>
+            <Button type="Sub" onClick={exportData}>
+              Export
+            </Button>
             <Button
-              label="Export"
-              className="p-button-outlined p-button-text p-button-plain"
-              icon="pi pi-upload"
-              onClick={exportData}
-            />
-            <ControlButton
-              style={{ margin: '0px 8px' }}
-              label="Cancel"
-              className="p-button-danger"
-              icon="pi pi-times"
-              onClick={() => setMode(MODE.DEVICE_WAITING)}
-            />
+              type="Sub"
+              onClick={() =>
+                setState({
+                  ...state,
+                  mode: MODE.DEVICE_WAITING,
+                  operation: OPERATION.DELETE,
+                  removeMode: REMOVE_MODE.DISABLE,
+                  selected: [],
+                })
+              }
+            >
+              Cancel
+            </Button>
             <Button
-              label="Run"
-              className="p-button-success"
-              icon="pi pi-play"
-              onClick={() => setMode(MODE.UNINSTALL_PACKAGE_RUN)}
-            />
+              type="Main"
+              onClick={() => setState({ ...state, mode: MODE.UNINSTALL_PACKAGE_RUN })}
+            >
+              Run
+            </Button>
           </>
         )}
       </ControlPanel>
-    </HeaderLayout>
+    </>
   );
 };
 

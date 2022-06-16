@@ -1,20 +1,25 @@
 import * as React from 'react';
-import styled from '@emotion/styled';
-import { Card } from 'primereact/card';
-import { PackageData } from '../../adb/GetPackages';
+import { Card, Radio, RadioChangeEvent } from 'antd';
+import { AndroidFilled } from '@ant-design/icons';
+import { styled } from '@stitches/react';
+import { useRecoilState } from 'recoil';
+import { appState } from '../constants/atoms';
+import { OPERATION, REMOVE_MODE } from '../constants/types';
 
-const Title = styled.h2({
+const Title = styled('h2', {
   margin: '4px 10px',
   color: '#f44336',
   opacity: 0.87,
   display: 'inline',
 });
 
-type ConfirmProps = {
-  rowSelected: PackageData[];
-};
+const Confirm = () => {
+  const [state, setState] = useRecoilState(appState);
 
-const Confirm = ({ rowSelected }: ConfirmProps) => {
+  const onChangeRemoveMode = ({ target: { value } }: RadioChangeEvent) => {
+    setState({ ...state, removeMode: value });
+  };
+
   return (
     <>
       <div
@@ -22,20 +27,31 @@ const Confirm = ({ rowSelected }: ConfirmProps) => {
           overflow: 'auto',
           height: '64px',
           width: '100%',
-          display: 'table-cell',
-          verticalAlign: 'middle',
+          display: 'flex',
+          justifyContent: 'space-between',
         }}
       >
-        <Title>Selected packages will be uninstalled!</Title>
+        <Title>
+          Selected packages will be {state.operation === OPERATION.DELETE ? 'removed' : 'installed'}
+          !
+        </Title>
+        {state.operation === OPERATION.DELETE && (
+          <div style={{ margin: '8px' }}>
+            Mode :{' '}
+            <Radio.Group value={state.removeMode} onChange={onChangeRemoveMode}>
+              <Radio.Button value={REMOVE_MODE.DISABLE}>Disable</Radio.Button>
+              <Radio.Button value={REMOVE_MODE.UNINSTALL}>Uninstall</Radio.Button>
+            </Radio.Group>
+          </div>
+        )}
       </div>
       <div style={{ overflow: 'auto', height: 'calc(100% - 64px)', width: '100%' }}>
-        {rowSelected.map((item, index) => (
+        {state.selected.map((item, index) => (
           <Card key={index} style={{ margin: 8 }}>
-            <i
-              className="pi pi-android"
-              style={{ color: '#78c257', fontSize: '1.1em', marginRight: '8px' }}
-            ></i>
-            <span style={{ fontSize: '1.1em' }}>{item.name}</span>
+            <div style={{ display: 'table-cell' }}>
+              <AndroidFilled style={{ fontSize: '1.8em', color: '#3DDC84' }} />
+              <span style={{ padding: '0px 8px', verticalAlign: 'super' }}>{item}</span>
+            </div>
           </Card>
         ))}
       </div>
